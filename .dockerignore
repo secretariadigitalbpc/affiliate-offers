@@ -1,0 +1,16 @@
+.git
+.github
+.codex-tmp
+.env
+.venv
+.pytest_cache
+backend
+frontend
+storage/backups/*
+storage/imports/*
+storage/logs/*
+tests
+*.md
+!README.md
+**/node_modules
+**/__pycache__

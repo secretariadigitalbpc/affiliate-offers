@@ -1,0 +1,15 @@
+.env
+/.codex-tmp/
+/vendor/
+/.venv/
+/.pytest_cache/
+/backend/
+/frontend/
+**/__pycache__/
+**/node_modules/
+/storage/logs/*
+/storage/imports/*
+/storage/backups/*
+!/storage/logs/.gitkeep
+!/storage/imports/.gitkeep
+!/storage/backups/.gitkeep
