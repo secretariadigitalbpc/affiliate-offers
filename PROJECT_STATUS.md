@@ -362,5 +362,7 @@ Digest remoto público fixado: sha256:39db3742ca8f013f5518deebd49b05505c646a0276
 Containers temporários confirmaram health, login, fluxo E2E, reinício e persistência e foram removidos.
 Linter oficial com verificação de imagens aprovado: No issues found.
 Community App Store pública preparada no próprio repositório.
-Próxima ação: adicionar https://github.com/secretariadigitalbpc/affiliate-offers no Umbrel e instalar o app.
+Variante de stack para Portainer implantada após solicitação do usuário; o primeiro diagnóstico detectou a exigência indevida de `.env` no contêiner.
+Correção aplicada para aceitar as variáveis fornecidas diretamente pelo Portainer, com teste de regressão dedicado.
+Próxima ação: publicar a imagem corrigida e repetir a validação do runtime; o ciclo nativo do Umbrel continuará pendente.
 ```

@@ -1,0 +1,60 @@
+services:
+  app:
+    image: ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0@sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83
+    restart: unless-stopped
+    environment:
+      APP_ENV: production
+      APP_DEBUG: "false"
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: affiliate_system
+      DB_USER: affiliate
+      DB_PASS: ${DB_PASSWORD}
+      MYSQL_BIN_DIR: /usr/bin
+      ADMIN_BOOTSTRAP_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_PASSWORD}
+      ML_OAUTH_ENABLED: "false"
+      ML_CLIENT_ID: ""
+      ML_CLIENT_SECRET: ""
+      ML_REDIRECT_URI: ""
+    ports:
+      - "8347:80"
+    volumes:
+      - affiliate_offers_storage:/var/www/html/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1/public/api/health.php') === false ? 1 : 0);"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  db:
+    image: mariadb:11.4.8@sha256:bc474f00629f0123c10f9e1bca193a45d18af15a274cf0656acda64f1086c3b6
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: affiliate_system
+      MARIADB_USER: affiliate
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - affiliate_offers_db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+volumes:
+  affiliate_offers_db:
+  affiliate_offers_storage:
+
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.254.254.0/24
+          gateway: 10.254.254.1

@@ -9,12 +9,19 @@ use RuntimeException;
 final class Environment
 {
     /**
-     * Carrega variáveis simples no formato CHAVE=VALOR.
+     * Carrega variáveis simples no formato CHAVE=VALOR quando o arquivo existe.
+     *
+     * Em produção, contêineres podem fornecer toda a configuração diretamente
+     * pelo ambiente e não precisam manter um arquivo .env no filesystem.
      */
     public static function load(string $path): void
     {
-        if (!is_file($path) || !is_readable($path)) {
-            throw new RuntimeException('Arquivo de configuração não encontrado.');
+        if (!is_file($path)) {
+            return;
+        }
+
+        if (!is_readable($path)) {
+            throw new RuntimeException('Arquivo de configuração não pode ser lido.');
         }
 
         $lines = file($path, FILE_IGNORE_NEW_LINES);
@@ -69,4 +76,3 @@ final class Environment
         return $value;
     }
 }
-
