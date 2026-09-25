@@ -2,9 +2,9 @@
 
 ## Status
 
-**PACOTE PREPARADO, MAS AINDA NÃO INSTALÁVEL.**
+**PACOTE PRONTO PARA TESTE CONTROLADO NO UMBREL.**
 
-O MVP local está aprovado. A estrutura do pacote foi criada em `deploy/umbrel/affiliate-offers`, porém a imagem multi-arquitetura própria ainda precisa ser publicada e fixada por digest.
+O MVP local está aprovado. A estrutura do pacote foi criada em `deploy/umbrel/affiliate-offers`, a imagem multi-arquitetura está pública no GHCR e fixada por digest, e o linter oficial foi aprovado. A submissão ao App Store continua bloqueada até a validação real no Umbrel.
 
 ## Objetivo futuro
 
@@ -40,9 +40,11 @@ A migração deve manter:
 [x] variáveis de ambiente documentadas
 [x] paths de execução relativos auditados
 [x] nenhum caminho absoluto de Windows no código de execução
-[ ] imagem própria publicada para amd64 e arm64
-[ ] marcadores REPLACE_WITH_* substituídos
-[ ] linter oficial do App Store executado
+[x] imagem própria publicada para amd64 e arm64
+[x] imagem do Compose fixada pelo digest remoto
+[x] website, repositório e suporte substituídos
+[ ] marcador da futura submissão substituído
+[x] linter oficial do App Store executado com verificação de imagens
 [ ] instalação, reinício e persistência testados em umbrelOS
 ```
 
@@ -86,7 +88,9 @@ digest: sha256:bc474f00629f0123c10f9e1bca193a45d18af15a274cf0656acda64f1086c3b6
 plataformas confirmadas: linux/amd64 e linux/arm64/v8
 ```
 
-O digest do MariaDB já está aplicado. A aplicação foi construída localmente para `linux/amd64` e `linux/arm64`; a lista OCI local tem digest `sha256:1572ba08fc01041f9fc07f0805f4e96d07c539a3fc2366a21b18669a060b097c`. Esse valor comprova o build local, mas **não** deve substituir o marcador do Compose: o pacote exige o digest retornado pelo registry depois da publicação.
+O digest do MariaDB já está aplicado. A aplicação foi publicada em `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` para `linux/amd64` e `linux/arm64`, sob o digest remoto `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83`, já aplicado ao Compose.
+
+A lista OCI local anterior tem digest `sha256:1572ba08fc01041f9fc07f0805f4e96d07c539a3fc2366a21b18669a060b097c`. Ela permanece apenas como evidência do build local; o pacote usa corretamente o digest remoto do GHCR.
 
 O ambiente de build fica na distribuição dedicada `DockerBuild`, armazenada em `F:\WSL\DockerBuild`. O artefato local está em `F:\DockerBuild\affiliate-offers-0.1.0.oci.tar`.
 
@@ -131,13 +135,12 @@ Client ID e Client Secret do Mercado Livre continuam vazios. Eles não devem ser
 
 Os volumes do banco e de `storage/` permanecem sob `${APP_DATA_DIR}/data` e entram no backup padrão do Umbrel. Nenhum `backupIgnore` foi definido porque banco, importações e backups locais são dados relevantes para recuperação.
 
-## Bloqueios para concluir a publicação
+## Bloqueios para concluir a etapa
 
-- autenticação do GitHub CLI e definição do proprietário/repositório do GHCR;
-- publicação da imagem e obtenção do digest remoto multi-arquitetura;
-- substituição dos metadados de projeto e submissão;
-- execução do linter oficial do App Store;
 - instalação pelo ciclo de vida do Umbrel disponível em `http://umbrel.local`;
 - teste real de atualização e rollback no umbrelOS.
+- criação do pull request de submissão somente depois dos testes, para então substituir `REPLACE_WITH_PR`.
 
 O runtime local já confirmou a imagem da aplicação em `amd64`, a execução de uma imagem oficial em `arm64`, login, fluxo E2E, reinício e persistência com MariaDB. Isso não substitui a validação final pelo `app_proxy` e pelos mecanismos de instalação/atualização do Umbrel.
+
+O linter oficial também foi executado em uma cópia descartável de `getumbrel/umbrel-apps` com `npm run lint:apps -- affiliate-offers --check-images`, retornando `No issues found`. O `git diff --check` do pacote terminou sem erros.

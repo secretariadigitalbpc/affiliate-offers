@@ -41,6 +41,10 @@ $assertions = [
     'sem Docker socket' => !str_contains($compose, '/var/run/docker.sock'),
     'sem modo privilegiado' => !preg_match('/privileged\s*:\s*true/i', $compose),
     'MariaDB fixado por digest' => str_contains($compose, 'mariadb:11.4.8@sha256:'),
+    'aplicação fixada por digest remoto' => preg_match(
+        '#ghcr\.io/secretariadigitalbpc/affiliate-offers:0\.1\.0@sha256:[a-f0-9]{64}#',
+        $compose,
+    ) === 1,
     'persistência do banco' => str_contains($compose, '${APP_DATA_DIR}/data/mysql:/var/lib/mysql'),
     'persistência da aplicação' => str_contains($compose, '${APP_DATA_DIR}/data/storage:/var/www/html/storage'),
     'manifesto versão 1' => str_contains($manifest, 'manifestVersion: 1'),
@@ -59,8 +63,8 @@ foreach ($assertions as $name => $passed) {
     }
 }
 
-if (!str_contains($compose, 'REPLACE_WITH_MULTIARCH_DIGEST')) {
-    throw new RuntimeException('O marcador obrigatório da imagem ainda não publicada foi removido indevidamente.');
+if (str_contains($compose, 'REPLACE_WITH_MULTIARCH_DIGEST')) {
+    throw new RuntimeException('O digest remoto publicado ainda não foi aplicado à imagem da aplicação.');
 }
 
 $runtimeFiles = [];
@@ -86,4 +90,4 @@ foreach ($runtimeFiles as $file) {
 }
 
 echo "Umbrel: estrutura, persistência, proxy, segredos e portabilidade estática = OK\n";
-echo "Pendente intencional: publicar imagem multi-arquitetura e substituir os marcadores REPLACE_WITH_*.\n";
+echo "Umbrel: imagem multi-arquitetura publicada e fixada por digest remoto = OK\n";

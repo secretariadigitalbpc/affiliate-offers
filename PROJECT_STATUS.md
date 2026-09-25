@@ -27,7 +27,7 @@ Umbrel, somente após o MVP local estar aprovado.
 
 **ETAPA 17 — publicar imagem e validar o pacote em umbrelOS**
 
-Status: EM ANDAMENTO — BUILD E RUNTIME LOCAIS APROVADOS; PUBLICAÇÃO E INSTALAÇÃO NO UMBREL PENDENTES
+Status: EM ANDAMENTO — IMAGEM E LINTER APROVADOS; CICLO DE VIDA NO UMBREL PENDENTE
 
 ## Concluído
 
@@ -204,7 +204,7 @@ Status: EM ANDAMENTO — BUILD E RUNTIME LOCAIS APROVADOS; PUBLICAÇÃO E INSTAL
 - [x] sintaxe shell do entrypoint validada;
 - [x] teste estático do pacote concluído;
 - [x] instalação, atualização, backup e rollback planejados e documentados;
-- [x] marcador obrigatório impede tratar a imagem ainda não publicada como pronta.
+- [x] marcador obrigatório impediu instalação antes da publicação da imagem.
 - [x] distribuição WSL dedicada `DockerBuild` instalada em `F:\WSL\DockerBuild`;
 - [x] Docker Engine 29.1.3, Buildx 0.30.1 e Compose 2.40.3 instalados no ambiente do F:;
 - [x] execução real de imagem `linux/arm64` via QEMU/binfmt confirmada como `aarch64`;
@@ -222,6 +222,14 @@ Status: EM ANDAMENTO — BUILD E RUNTIME LOCAIS APROVADOS; PUBLICAÇÃO E INSTAL
 - [x] repositório público `secretariadigitalbpc/affiliate-offers` criado;
 - [x] workflow GitHub Actions criado para publicar amd64/arm64 no GHCR sem token persistente adicional;
 - [x] proprietário, website, repositório e suporte preenchidos no pacote Umbrel.
+- [x] primeiro commit publicado na branch `main` do repositório público;
+- [x] workflow GitHub Actions executado com sucesso para `linux/amd64` e `linux/arm64`;
+- [x] imagem pública `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` publicada;
+- [x] digest remoto `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83` confirmado sem autenticação;
+- [x] digest remoto aplicado ao `docker-compose.yml` do pacote Umbrel;
+- [x] pacote copiado para uma cópia descartável do repositório oficial `getumbrel/umbrel-apps`;
+- [x] linter oficial executado com `--check-images` e resultado `No issues found`;
+- [x] `git diff --check` do pacote executado sem erros.
 
 ## Removido da arquitetura local
 
@@ -233,16 +241,13 @@ Status: EM ANDAMENTO — BUILD E RUNTIME LOCAIS APROVADOS; PUBLICAÇÃO E INSTAL
 
 ## Trabalho restante da etapa atual
 
-Executar após enviar o primeiro commit ao repositório:
+Executar com a imagem pública já fixada:
 
 ```text
-disparar o workflow e publicar a imagem para linux/amd64 e linux/arm64
-fixar o digest multi-arquitetura no docker-compose
-substituir metadados REPLACE_WITH_* do manifesto
-executar o linter oficial do App Store
 instalar pelo ciclo de vida do Umbrel
 validar login, fluxo principal, reinício e persistência
 testar atualização e rollback controlados
+criar a submissão e substituir REPLACE_WITH_PR somente após aprovação
 ```
 
 ## Último teste
@@ -278,9 +283,10 @@ MVP E2E dentro do container = OK
 Reinício e persistência de banco/storage = OK
 GitHub autenticado como secretariadigitalbpc = OK
 Repositório público criado = OK
-Workflow de publicação GHCR = PREPARADO
-Imagem própria publicada no registry = PENDENTE
-Linter oficial do App Store = PENDENTE
+Workflow de publicação GHCR = APROVADO
+Imagem pública GHCR amd64 + arm64 = OK
+Digest remoto fixado no Compose = sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83
+Linter oficial do App Store com --check-images = OK (No issues found)
 Teste em umbrelOS = PENDENTE INTENCIONAL
 ```
 
@@ -290,12 +296,14 @@ Teste em umbrelOS = PENDENTE INTENCIONAL
 
 Motivo:
 
-A continuação envolve autenticação externa, publicação de imagem, substituição de metadados, ciclo de vida real do Umbrel e rollback. High continua recomendado por envolver infraestrutura externa e risco aos dados persistentes.
+A continuação envolve o ciclo de vida real do Umbrel e rollback. High continua recomendado por envolver infraestrutura externa e risco aos dados persistentes.
 
 ## Arquivos alterados
 
 ```text
 .dockerignore
+.gitignore
+.github/workflows/publish-image.yml
 database/migrate.php
 database/seeds/ensure_admin.php
 deploy/container/Dockerfile
@@ -328,11 +336,11 @@ PROJECT_STATUS.md
 - backup e restauração isolada do banco foram validados;
 - o backup validado permanece somente em `storage/backups`, fora do Git, e deve ser tratado como confidencial;
 - Docker Desktop não foi instalado; o runtime validado é um Docker Engine dentro da distribuição WSL dedicada no F:;
-- a imagem própria foi construída para amd64 e arm64, mas ainda precisa ser publicada no GHCR e fixada pelo digest remoto;
-- os marcadores `REPLACE_WITH_*` impedem instalação acidental do pacote incompleto;
-- o repositório público foi criado, mas o primeiro commit e o workflow de publicação ainda precisam ser enviados/executados;
+- a imagem própria foi publicada para amd64 e arm64 e fixada pelo digest remoto;
+- o único marcador restante é `REPLACE_WITH_PR`, que depende de uma submissão futura após os testes;
+- o repositório público, o commit inicial e o workflow de publicação foram concluídos;
 - `umbrel.local` resolve para `192.168.2.109` e respondeu HTTP 200, mas o pacote ainda não foi instalado nem validado pelo ciclo de vida do umbrelOS;
-- o linter oficial, a atualização e o rollback reais permanecem pendentes até a publicação;
+- a instalação pelo `app_proxy`, a atualização e o rollback reais permanecem pendentes;
 - a documentação pública consultada não confirma endpoints do Programa de Afiliados para vendas, comissões ou links;
 - callback, troca e armazenamento de tokens não foram implementados sem essa confirmação;
 - a vinculação real dependerá de uma aplicação oficial, credenciais no `.env` e documentação/permissão compatível do Mercado Livre;
@@ -347,7 +355,9 @@ Stack: PHP + MySQL/MariaDB + HTML/CSS/JavaScript
 Deploy alvo futuro: Umbrel
 ETAPA 17 em andamento; build e runtime locais aprovados.
 Docker Engine e dados de build ficam na distribuição WSL dedicada em F:\WSL\DockerBuild.
-Imagem OCI amd64/arm64 construída e validada localmente sem publicação externa.
+Imagem OCI amd64/arm64 construída localmente e publicada no GHCR.
+Digest remoto público fixado: sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83.
 Containers temporários confirmaram health, login, fluxo E2E, reinício e persistência e foram removidos.
-Próxima ação: enviar o commit, publicar no GHCR, fixar o digest remoto e instalar no Umbrel.
+Linter oficial com verificação de imagens aprovado: No issues found.
+Próxima ação: instalar no Umbrel para validar o ciclo de vida.
 ```

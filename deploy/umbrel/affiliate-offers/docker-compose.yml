@@ -7,7 +7,7 @@ services:
       APP_PORT: 80
 
   app:
-    image: ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0@sha256:REPLACE_WITH_MULTIARCH_DIGEST
+    image: ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0@sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83
     restart: on-failure
     env_file:
       - ${APP_DATA_DIR}/app.env

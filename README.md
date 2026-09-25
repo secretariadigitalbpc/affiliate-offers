@@ -21,7 +21,7 @@ Somente depois do MVP local estar funcionando será preparada a instalação no 
 
 ## Estado atual
 
-O MVP local foi validado ponta a ponta no Apache/XAMPP: cadastro administrativo, publicação da oferta, vitrine, analytics, venda e comissão no dashboard. O backup foi restaurado em banco isolado, e a estrutura de empacotamento para Umbrel foi preparada. A imagem `linux/amd64` + `linux/arm64` também foi construída e testada localmente com Docker Engine em uma distribuição WSL dedicada no F:. Ainda faltam publicar a imagem no registry, fixar o digest remoto, executar o linter oficial e validar o ciclo de vida no umbrelOS.
+O MVP local foi validado ponta a ponta no Apache/XAMPP: cadastro administrativo, publicação da oferta, vitrine, analytics, venda e comissão no dashboard. O backup foi restaurado em banco isolado, e a estrutura de empacotamento para Umbrel foi preparada. A imagem `linux/amd64` + `linux/arm64` foi testada localmente e publicada no GHCR com digest fixo. O linter oficial do App Store foi aprovado com verificação de imagens; ainda faltam validar instalação, atualização e rollback no umbrelOS.
 
 ## Fluxo
 

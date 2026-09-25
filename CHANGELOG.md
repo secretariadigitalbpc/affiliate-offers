@@ -125,6 +125,7 @@
 - URL-base configurável no teste E2E para reutilização em XAMPP e containers;
 - exclusão de `.codex-tmp` do contexto de build.
 - workflow GitHub Actions para publicar a imagem amd64/arm64 no GHCR com `GITHUB_TOKEN`.
+- imagem pública `0.1.0` publicada no GHCR e fixada no pacote pelo digest remoto multi-arquitetura.
 
 ### Fixed
 
@@ -137,4 +138,9 @@
 ### Pending
 
 - integração oficial com os marketplaces quando houver credenciais e APIs compatíveis;
-- publicação da imagem multi-arquitetura no registry, linter oficial e teste real do pacote em umbrelOS.
+- teste real de instalação, atualização e rollback do pacote em umbrelOS.
+
+### Validated
+
+- linter oficial do App Store com `--check-images`, retornando `No issues found`;
+- `git diff --check` do pacote na cópia descartável do repositório oficial.

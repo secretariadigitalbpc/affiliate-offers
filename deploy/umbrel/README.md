@@ -2,7 +2,7 @@
 
 ## Estado
 
-**NÃO INSTALAR AINDA.** A estrutura segue o formato atual do App Store do Umbrel, mas contém marcadores `REPLACE_WITH_*` porque a imagem própria da aplicação ainda não foi publicada em um registry.
+**PRONTO PARA TESTE CONTROLADO NO UMBREL; AINDA NÃO SUBMETER AO APP STORE.** A imagem está pública no GHCR e fixada por digest. O único marcador restante é a URL da futura submissão, que só existirá depois da validação real.
 
 Pacote preparado:
 
@@ -22,12 +22,10 @@ affiliate-offers/
 
 ## Antes de instalar
 
-1. publicar a imagem criada por `deploy/container/Dockerfile` para `linux/amd64` e `linux/arm64`;
-2. fixar no Compose o nome, a versão e o digest multi-arquitetura da imagem;
-3. substituir website, repositório, suporte e URL de submissão no manifesto;
-4. confirmar que a porta `8347` continua livre no App Store de destino;
-5. executar o linter oficial do repositório `getumbrel/umbrel-apps`;
-6. testar instalação, abertura pelo `app_proxy`, reinício e persistência em um Umbrel real ou ambiente umbrelOS descartável.
+1. confirmar que a porta `8347` continua livre no App Store de destino;
+2. testar instalação, abertura pelo `app_proxy`, reinício e persistência no Umbrel;
+3. testar atualização e rollback controlados;
+4. somente depois, criar a submissão e substituir `REPLACE_WITH_PR`.
 
 ## Arquitetura preparada
 
@@ -43,6 +41,6 @@ affiliate-offers/
 
 ## Validação realizada e limite atual
 
-A imagem foi construída localmente para `linux/amd64` e `linux/arm64` com Docker Engine/Buildx em uma distribuição WSL dedicada no F:. Em containers reais foram aprovados migrations, bootstrap, health check, login, fluxo E2E, reinício e persistência com MariaDB.
+A imagem foi construída para `linux/amd64` e `linux/arm64`, publicada como `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` e fixada pelo digest `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83`. Em containers reais foram aprovados migrations, bootstrap, health check, login, fluxo E2E, reinício e persistência com MariaDB.
 
-Ainda não foram executados a publicação no registry, o linter oficial, o `app_proxy` e o ciclo de instalação/atualização/rollback do umbrelOS. Os marcadores `REPLACE_WITH_*` continuam obrigatórios até existir um digest remoto publicado.
+O linter oficial de `getumbrel/umbrel-apps` foi aprovado com `--check-images` (`No issues found`), e `git diff --check` terminou sem erros. Ainda não foram executados o teste pelo `app_proxy` e o ciclo de instalação/atualização/rollback do umbrelOS. O marcador da submissão permanece até existir um pull request real.

@@ -274,7 +274,7 @@ manifest list: sha256:1572ba08fc01041f9fc07f0805f4e96d07c539a3fc2366a21b18669a06
 plataformas: linux/amd64 e linux/arm64
 ```
 
-A publicação no registry, o linter oficial e o ciclo de vida real do Umbrel continuam pendentes. Os containers, rede, volumes e credenciais temporários do teste foram removidos.
+A publicação no GHCR foi concluída pelo GitHub Actions, com manifests `linux/amd64` e `linux/arm64` sob o digest `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83`. Em uma cópia descartável do repositório oficial `getumbrel/umbrel-apps`, `npm run lint:apps -- affiliate-offers --check-images` retornou `No issues found`, e `git diff --check` terminou sem erros. O ciclo de vida real do Umbrel continua pendente. Os containers, rede, volumes e credenciais temporários do teste foram removidos.
 
 ## Não testar desnecessariamente
 
