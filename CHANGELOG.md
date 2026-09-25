@@ -126,6 +126,7 @@
 - exclusão de `.codex-tmp` do contexto de build.
 - workflow GitHub Actions para publicar a imagem amd64/arm64 no GHCR com `GITHUB_TOKEN`.
 - imagem pública `0.1.0` publicada no GHCR e fixada no pacote pelo digest remoto multi-arquitetura.
+- manifesto de Community App Store e pacote instalável no nível raiz do repositório.
 
 ### Fixed
 
@@ -144,3 +145,4 @@
 
 - linter oficial do App Store com `--check-images`, retornando `No issues found`;
 - `git diff --check` do pacote na cópia descartável do repositório oficial.
+- sincronização byte a byte entre o pacote-fonte e a cópia oferecida pela Community App Store.

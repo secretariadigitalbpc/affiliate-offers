@@ -1,0 +1,28 @@
+manifestVersion: 1
+id: affiliate-offers
+category: finance
+name: Ofertas de Afiliados
+version: "0.1.0"
+tagline: Gerencie ofertas, links, campanhas e comissões em seu servidor
+description: >-
+  Sistema local para organizar produtos e links de afiliado, publicar ofertas,
+  acompanhar visualizações e cliques e registrar vendas e comissões.
+
+
+  Na primeira instalação, entre com `admin@umbrel.local` e com a senha exibida
+  pelo Umbrel. Integrações oficiais com marketplaces permanecem desativadas até
+  que existam credenciais e APIs compatíveis.
+releaseNotes: ""
+developer: Secretaria Digital BPC
+website: https://github.com/secretariadigitalbpc/affiliate-offers
+dependencies: []
+repo: https://github.com/secretariadigitalbpc/affiliate-offers
+support: https://github.com/secretariadigitalbpc/affiliate-offers/issues
+port: 8347
+gallery: []
+path: "/public/"
+defaultUsername: admin@umbrel.local
+defaultPassword: ""
+deterministicPassword: true
+submitter: Bruno
+submission: https://github.com/getumbrel/umbrel-apps/pull/REPLACE_WITH_PR

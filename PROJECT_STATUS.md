@@ -229,7 +229,9 @@ Status: EM ANDAMENTO — IMAGEM E LINTER APROVADOS; CICLO DE VIDA NO UMBREL PEND
 - [x] digest remoto aplicado ao `docker-compose.yml` do pacote Umbrel;
 - [x] pacote copiado para uma cópia descartável do repositório oficial `getumbrel/umbrel-apps`;
 - [x] linter oficial executado com `--check-images` e resultado `No issues found`;
-- [x] `git diff --check` do pacote executado sem erros.
+- [x] `git diff --check` do pacote executado sem erros;
+- [x] repositório preparado como Community App Store com o ID `secretaria-digital-bpc`;
+- [x] cópia instalável de `affiliate-offers` mantida idêntica ao pacote-fonte por teste automatizado.
 
 ## Removido da arquitetura local
 
@@ -359,5 +361,6 @@ Imagem OCI amd64/arm64 construída localmente e publicada no GHCR.
 Digest remoto público fixado: sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83.
 Containers temporários confirmaram health, login, fluxo E2E, reinício e persistência e foram removidos.
 Linter oficial com verificação de imagens aprovado: No issues found.
-Próxima ação: instalar no Umbrel para validar o ciclo de vida.
+Community App Store pública preparada no próprio repositório.
+Próxima ação: adicionar https://github.com/secretariadigitalbpc/affiliate-offers no Umbrel e instalar o app.
 ```

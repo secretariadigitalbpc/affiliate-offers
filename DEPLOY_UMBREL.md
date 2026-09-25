@@ -115,12 +115,14 @@ Client ID e Client Secret do Mercado Livre continuam vazios. Eles não devem ser
 
 ## Instalação planejada
 
-1. Umbrel renderiza `app.env.template` usando os segredos derivados;
-2. MariaDB cria o banco e o usuário no volume persistente;
-3. o container PHP aguarda o banco ficar disponível;
-4. `database/migrate.php` aplica/verifica as migrations sob lock;
-5. `ensure_admin.php` cria o administrador apenas se ainda não existir;
-6. Apache inicia e o `app_proxy` abre `/public/`.
+1. adicionar `https://github.com/secretariadigitalbpc/affiliate-offers` em **App Store > Community App Stores**;
+2. instalar **Ofertas de Afiliados** pela loja `Secretaria Digital BPC`;
+3. Umbrel renderiza `app.env.template` usando os segredos derivados;
+4. MariaDB cria o banco e o usuário no volume persistente;
+5. o container PHP aguarda o banco ficar disponível;
+6. `database/migrate.php` aplica/verifica as migrations sob lock;
+7. `ensure_admin.php` cria o administrador apenas se ainda não existir;
+8. Apache inicia e o `app_proxy` abre `/public/`.
 
 ## Atualização e rollback planejados
 

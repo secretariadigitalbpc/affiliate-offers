@@ -1,6 +1,8 @@
 .git
 .github
 .codex-tmp
+affiliate-offers
+umbrel-app-store.yml
 .env
 .venv
 .pytest_cache

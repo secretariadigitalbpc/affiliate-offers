@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 $root = dirname(__DIR__);
 $package = $root . '/deploy/umbrel/affiliate-offers';
+$communityPackage = $root . '/affiliate-offers';
 $required = [
     $root . '/.dockerignore',
+    $root . '/umbrel-app-store.yml',
     $root . '/deploy/container/Dockerfile',
     $root . '/deploy/container/apache-affiliate.conf',
     $root . '/deploy/container/entrypoint.sh',
@@ -19,11 +21,21 @@ $required = [
     $package . '/data/storage/logs/.gitkeep',
     $package . '/data/storage/imports/.gitkeep',
     $package . '/data/storage/backups/.gitkeep',
+    $communityPackage . '/umbrel-app.yml',
+    $communityPackage . '/docker-compose.yml',
+    $communityPackage . '/exports.sh',
+    $communityPackage . '/app.env.template',
 ];
 
 foreach ($required as $file) {
     if (!is_file($file)) {
         throw new RuntimeException('Arquivo obrigatório ausente: ' . $file);
+    }
+}
+
+foreach (['umbrel-app.yml', 'docker-compose.yml', 'exports.sh', 'app.env.template'] as $file) {
+    if (file_get_contents($package . '/' . $file) !== file_get_contents($communityPackage . '/' . $file)) {
+        throw new RuntimeException('Pacote da Community App Store fora de sincronia: ' . $file);
     }
 }
 
@@ -55,6 +67,10 @@ $assertions = [
     'produção sem debug' => str_contains($environment, 'APP_ENV=production') && str_contains($environment, 'APP_DEBUG=false'),
     'banco interno por DNS' => str_contains($environment, 'DB_HOST=db'),
     'OAuth desativado' => str_contains($environment, 'ML_OAUTH_ENABLED=false'),
+    'Community App Store identificada' => str_contains(
+        (string) file_get_contents($root . '/umbrel-app-store.yml'),
+        'id: secretaria-digital-bpc',
+    ),
 ];
 
 foreach ($assertions as $name => $passed) {
@@ -91,3 +107,4 @@ foreach ($runtimeFiles as $file) {
 
 echo "Umbrel: estrutura, persistência, proxy, segredos e portabilidade estática = OK\n";
 echo "Umbrel: imagem multi-arquitetura publicada e fixada por digest remoto = OK\n";
+echo "Umbrel: Community App Store pronta e sincronizada = OK\n";

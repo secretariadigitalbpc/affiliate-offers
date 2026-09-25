@@ -23,9 +23,11 @@ affiliate-offers/
 ## Antes de instalar
 
 1. confirmar que a porta `8347` continua livre no App Store de destino;
-2. testar instalação, abertura pelo `app_proxy`, reinício e persistência no Umbrel;
-3. testar atualização e rollback controlados;
-4. somente depois, criar a submissão e substituir `REPLACE_WITH_PR`.
+2. adicionar `https://github.com/secretariadigitalbpc/affiliate-offers` em **App Store > Community App Stores**;
+3. instalar **Ofertas de Afiliados** pela loja `Secretaria Digital BPC`;
+4. testar abertura pelo `app_proxy`, reinício e persistência no Umbrel;
+5. testar atualização e rollback controlados;
+6. somente depois, criar a submissão e substituir `REPLACE_WITH_PR`.
 
 ## Arquitetura preparada
 
