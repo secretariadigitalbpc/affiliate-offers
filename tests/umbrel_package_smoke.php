@@ -77,7 +77,7 @@ $assertions = [
     'sem modo privilegiado' => !preg_match('/privileged\s*:\s*true/i', $compose),
     'MariaDB fixado por digest' => str_contains($compose, 'mariadb:11.4.8@sha256:'),
     'aplicação fixada por digest remoto' => preg_match(
-        '#ghcr\.io/secretariadigitalbpc/affiliate-offers:0\.1\.0@sha256:[a-f0-9]{64}#',
+        '#ghcr\.io/secretariadigitalbpc/affiliate-offers:0\.1\.1@sha256:[a-f0-9]{64}#',
         $compose,
     ) === 1,
     'persistência do banco' => str_contains($compose, '${APP_DATA_DIR}/data/mysql:/var/lib/mysql'),

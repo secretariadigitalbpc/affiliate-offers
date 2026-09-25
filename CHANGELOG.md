@@ -126,6 +126,7 @@
 - exclusão de `.codex-tmp` do contexto de build.
 - workflow GitHub Actions para publicar a imagem amd64/arm64 no GHCR com `GITHUB_TOKEN`.
 - imagem pública `0.1.0` publicada no GHCR e fixada no pacote pelo digest remoto multi-arquitetura.
+- imagem corretiva `0.1.1` publicada para amd64/arm64 e fixada pelo digest remoto multi-arquitetura.
 - manifesto de Community App Store e pacote instalável no nível raiz do repositório.
 - stack alternativa do Portainer com volumes nomeados, porta web explícita e segredos fornecidos por variáveis.
 

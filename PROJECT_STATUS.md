@@ -224,8 +224,8 @@ Status: EM ANDAMENTO — IMAGEM E LINTER APROVADOS; CICLO DE VIDA NO UMBREL PEND
 - [x] proprietário, website, repositório e suporte preenchidos no pacote Umbrel.
 - [x] primeiro commit publicado na branch `main` do repositório público;
 - [x] workflow GitHub Actions executado com sucesso para `linux/amd64` e `linux/arm64`;
-- [x] imagem pública `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` publicada;
-- [x] digest remoto `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83` confirmado sem autenticação;
+- [x] imagem pública `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.1` publicada;
+- [x] digest remoto `sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3` confirmado sem autenticação;
 - [x] digest remoto aplicado ao `docker-compose.yml` do pacote Umbrel;
 - [x] pacote copiado para uma cópia descartável do repositório oficial `getumbrel/umbrel-apps`;
 - [x] linter oficial executado com `--check-images` e resultado `No issues found`;
@@ -287,7 +287,7 @@ GitHub autenticado como secretariadigitalbpc = OK
 Repositório público criado = OK
 Workflow de publicação GHCR = APROVADO
 Imagem pública GHCR amd64 + arm64 = OK
-Digest remoto fixado no Compose = sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83
+Digest remoto fixado no Compose = sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3
 Linter oficial do App Store com --check-images = OK (No issues found)
 Teste em umbrelOS = PENDENTE INTENCIONAL
 ```
@@ -358,11 +358,14 @@ Deploy alvo futuro: Umbrel
 ETAPA 17 em andamento; build e runtime locais aprovados.
 Docker Engine e dados de build ficam na distribuição WSL dedicada em F:\WSL\DockerBuild.
 Imagem OCI amd64/arm64 construída localmente e publicada no GHCR.
-Digest remoto público fixado: sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83.
+Digest remoto público fixado: sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3.
 Containers temporários confirmaram health, login, fluxo E2E, reinício e persistência e foram removidos.
 Linter oficial com verificação de imagens aprovado: No issues found.
 Community App Store pública preparada no próprio repositório.
 Variante de stack para Portainer implantada após solicitação do usuário; o primeiro diagnóstico detectou a exigência indevida de `.env` no contêiner.
 Correção aplicada para aceitar as variáveis fornecidas diretamente pelo Portainer, com teste de regressão dedicado.
-Próxima ação: publicar a imagem corrigida e repetir a validação do runtime; o ciclo nativo do Umbrel continuará pendente.
+Imagem corrigida `0.1.1` publicada para amd64/arm64 e fixada pelo digest `sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3`.
+Stack atualizada no Portainer; aplicação e MariaDB ficaram `healthy`, com volumes persistentes e banco restrito ao namespace de rede compartilhado.
+O host Umbrel ainda bloqueia conexões LAN na porta publicada 8347, embora o Docker a exponha; a abertura do firewall do host depende de autorização específica.
+Próxima ação: liberar/testar o acesso pela porta 8347 e validar login e reinício; o ciclo nativo do Umbrel continuará pendente.
 ```

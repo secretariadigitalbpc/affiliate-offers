@@ -43,6 +43,6 @@ affiliate-offers/
 
 ## Validação realizada e limite atual
 
-A imagem foi construída para `linux/amd64` e `linux/arm64`, publicada como `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` e fixada pelo digest `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83`. Em containers reais foram aprovados migrations, bootstrap, health check, login, fluxo E2E, reinício e persistência com MariaDB.
+A imagem foi construída para `linux/amd64` e `linux/arm64`, publicada como `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.1` e fixada pelo digest `sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3`. Em containers reais foram aprovados migrations, bootstrap, health check, login, fluxo E2E, reinício e persistência com MariaDB.
 
 O linter oficial de `getumbrel/umbrel-apps` foi aprovado com `--check-images` (`No issues found`), e `git diff --check` terminou sem erros. Ainda não foram executados o teste pelo `app_proxy` e o ciclo de instalação/atualização/rollback do umbrelOS. O marcador da submissão permanece até existir um pull request real.

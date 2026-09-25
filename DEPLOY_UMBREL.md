@@ -88,7 +88,7 @@ digest: sha256:bc474f00629f0123c10f9e1bca193a45d18af15a274cf0656acda64f1086c3b6
 plataformas confirmadas: linux/amd64 e linux/arm64/v8
 ```
 
-O digest do MariaDB já está aplicado. A aplicação foi publicada em `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.0` para `linux/amd64` e `linux/arm64`, sob o digest remoto `sha256:39db3742ca8f013f5518deebd49b05505c646a0276d5460d138caaea25767f83`, já aplicado ao Compose.
+O digest do MariaDB já está aplicado. A aplicação foi publicada em `ghcr.io/secretariadigitalbpc/affiliate-offers:0.1.1` para `linux/amd64` e `linux/arm64`, sob o digest remoto `sha256:ff64e6f104e7631382a5271261ab8da3bff827bc3e79d591ceffb21172672be3`, já aplicado ao Compose.
 
 A lista OCI local anterior tem digest `sha256:1572ba08fc01041f9fc07f0805f4e96d07c539a3fc2366a21b18669a060b097c`. Ela permanece apenas como evidência do build local; o pacote usa corretamente o digest remoto do GHCR.
 

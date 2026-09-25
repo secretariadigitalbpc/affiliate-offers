@@ -11,9 +11,9 @@ No Portainer, crie uma stack chamada `affiliate-offers` usando `docker-compose.y
 - `ADMIN_EMAIL`: e-mail do primeiro administrador;
 - `ADMIN_PASSWORD`: senha do primeiro administrador, com pelo menos 12 caracteres.
 
-A aplicação fica disponível em `http://IP_DO_UMBREL:8347/public/`. O banco não publica porta. Banco e `storage` usam volumes Docker nomeados.
+A aplicação fica disponível em `http://IP_DO_UMBREL:8347/public/`. O banco não publica a porta 3306. Banco e `storage` usam volumes Docker nomeados.
 
-A rede da stack usa explicitamente `10.254.254.0/24`, confirmada como livre no host de teste, porque os pools automáticos desse Docker já estavam esgotados por outras stacks.
+Como os pools automáticos desse Docker já estão esgotados por outras stacks, aplicação e banco compartilham o mesmo namespace de rede sobre a bridge padrão. O MariaDB fica vinculado somente a `127.0.0.1`; apenas a porta web 8347 é publicada no host.
 
 ## Limite da validação
 

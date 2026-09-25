@@ -2,7 +2,7 @@ manifestVersion: 1
 id: affiliate-offers
 category: finance
 name: Ofertas de Afiliados
-version: "0.1.0"
+version: "0.1.1"
 tagline: Gerencie ofertas, links, campanhas e comissões em seu servidor
 description: >-
   Sistema local para organizar produtos e links de afiliado, publicar ofertas,
