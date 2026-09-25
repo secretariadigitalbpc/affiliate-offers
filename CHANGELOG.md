@@ -145,4 +145,4 @@
 
 - linter oficial do App Store com `--check-images`, retornando `No issues found`;
 - `git diff --check` do pacote na cópia descartável do repositório oficial.
-- sincronização byte a byte entre o pacote-fonte e a cópia oferecida pela Community App Store.
+- sincronização controlada entre o pacote-fonte e a variante comunitária, permitindo apenas o prefixo obrigatório do ID e seu host derivado.

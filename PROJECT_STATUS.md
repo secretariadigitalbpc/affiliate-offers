@@ -231,7 +231,7 @@ Status: EM ANDAMENTO — IMAGEM E LINTER APROVADOS; CICLO DE VIDA NO UMBREL PEND
 - [x] linter oficial executado com `--check-images` e resultado `No issues found`;
 - [x] `git diff --check` do pacote executado sem erros;
 - [x] repositório preparado como Community App Store com o ID `secretaria-digital-bpc`;
-- [x] cópia instalável de `affiliate-offers` mantida idêntica ao pacote-fonte por teste automatizado.
+- [x] variante comunitária `secretaria-digital-bpc-affiliate-offers` validada contra o pacote-fonte por teste automatizado.
 
 ## Removido da arquitetura local
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $root = dirname(__DIR__);
 $package = $root . '/deploy/umbrel/affiliate-offers';
-$communityPackage = $root . '/affiliate-offers';
+$communityPackage = $root . '/secretaria-digital-bpc-affiliate-offers';
 $required = [
     $root . '/.dockerignore',
     $root . '/umbrel-app-store.yml',
@@ -25,6 +25,10 @@ $required = [
     $communityPackage . '/docker-compose.yml',
     $communityPackage . '/exports.sh',
     $communityPackage . '/app.env.template',
+    $communityPackage . '/data/mysql/.gitkeep',
+    $communityPackage . '/data/storage/logs/.gitkeep',
+    $communityPackage . '/data/storage/imports/.gitkeep',
+    $communityPackage . '/data/storage/backups/.gitkeep',
 ];
 
 foreach ($required as $file) {
@@ -33,10 +37,29 @@ foreach ($required as $file) {
     }
 }
 
-foreach (['umbrel-app.yml', 'docker-compose.yml', 'exports.sh', 'app.env.template'] as $file) {
+foreach (['exports.sh', 'app.env.template'] as $file) {
     if (file_get_contents($package . '/' . $file) !== file_get_contents($communityPackage . '/' . $file)) {
         throw new RuntimeException('Pacote da Community App Store fora de sincronia: ' . $file);
     }
+}
+
+$expectedCommunityManifest = preg_replace(
+    '/^id: affiliate-offers$/m',
+    'id: secretaria-digital-bpc-affiliate-offers',
+    (string) file_get_contents($package . '/umbrel-app.yml'),
+);
+$expectedCommunityCompose = str_replace(
+    'APP_HOST: affiliate-offers_app_1',
+    'APP_HOST: secretaria-digital-bpc-affiliate-offers_app_1',
+    (string) file_get_contents($package . '/docker-compose.yml'),
+);
+
+if ($expectedCommunityManifest !== file_get_contents($communityPackage . '/umbrel-app.yml')) {
+    throw new RuntimeException('Manifesto da Community App Store fora de sincronia.');
+}
+
+if ($expectedCommunityCompose !== file_get_contents($communityPackage . '/docker-compose.yml')) {
+    throw new RuntimeException('Compose da Community App Store fora de sincronia.');
 }
 
 $dockerfile = (string) file_get_contents($root . '/deploy/container/Dockerfile');
